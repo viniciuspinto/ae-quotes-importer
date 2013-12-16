@@ -1,0 +1,14 @@
+local: &local
+  adapter: mysql2
+  host: localhost
+  encoding: utf8
+  username:  
+  password: 
+
+development:
+  <<: *local
+  database: ae_quotes_development
+
+test:
+  <<: *local
+  database: ae_quotes_test

@@ -1,3 +1,6 @@
+.DS_Store
+*.swp
+Gemfile.lock
 *.gem
 *.rbc
 .bundle
