@@ -1,5 +1,5 @@
 require_relative '../spec_helper.rb'
-require 'parser/layout'
+require 'ae_quotes_importer/parser/layout'
 
 module AeQuotesImporter
 

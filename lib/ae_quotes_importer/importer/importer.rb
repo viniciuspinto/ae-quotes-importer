@@ -1,6 +1,3 @@
-require 'model/stock'
-require 'parser/parser'
-
 module AeQuotesImporter
 
   class Importer

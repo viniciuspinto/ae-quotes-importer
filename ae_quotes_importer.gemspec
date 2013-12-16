@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
   s.name        = 'ae_quotes_importer'
   s.version     = '0.1.0'
-  s.summary     = "Import Bovespa stock quotes to a database from CSV files provided by AE"
-  s.description = "A parser and importer of stock quotes from CSV files in the format specified by Agência Estado. These quote files can be downloaded from the Investor Relations sites of some of the companies listed on Bovespa."
+  s.summary     = "Import Bovespa stock quotes to a database from .csv files provided by AE"
+  s.description = "A parser and importer of stock quotes from .csv files in the format specified by Agência Estado. These quote files can be downloaded from the Investor Relations sites of some of the companies listed on Bovespa."
   s.author      = 'Vinicius Pinto'
   s.email       = 'contact@codense.com'
   s.licenses    = ['MIT']
@@ -12,12 +12,12 @@ Gem::Specification.new do |s|
     "db/migrate/20131130212223_create_stocks.rb",
     "db/migrate/20131215154547_create_ae_quotes.rb",
     "db/schema.rb",
-    "lib/ae-quotes-importer/bootstrap.rb",
-    "lib/ae-quotes-importer/importer/importer.rb",
-    "lib/ae-quotes-importer/model/ae_quote.rb",
-    "lib/ae-quotes-importer/model/stock.rb",
-    "lib/ae-quotes-importer/parser/layout.rb",
-    "lib/ae-quotes-importer/parser/parser.rb",
+    "lib/ae_quotes_importer.rb",
+    "lib/ae_quotes_importer/importer/importer.rb",
+    "lib/ae_quotes_importer/model/ae_quote.rb",
+    "lib/ae_quotes_importer/model/stock.rb",
+    "lib/ae_quotes_importer/parser/layout.rb",
+    "lib/ae_quotes_importer/parser/parser.rb",
     "Rakefile",
     "spec/data/ae_quotes1.csv",
     "spec/data/ae_quotes2.csv",

@@ -3,7 +3,7 @@ require 'standalone_migrations'
 ENV['RAILS_ENV'] = Rails.env = 'test'
 
 require 'database_cleaner'
-require_relative '../lib/ae-quotes-importer/bootstrap.rb'
+require_relative '../lib/ae_quotes_importer.rb'
 
 RSpec.configure do |config|
 

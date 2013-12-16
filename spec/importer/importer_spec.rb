@@ -1,7 +1,7 @@
 require_relative '../spec_helper.rb'
-require 'model/stock.rb'
-require 'model/ae_quote.rb'
-require 'importer/importer.rb'
+require 'ae_quotes_importer/model/stock.rb'
+require 'ae_quotes_importer/model/ae_quote.rb'
+require 'ae_quotes_importer/importer/importer.rb'
 
 module AeQuotesImporter
 

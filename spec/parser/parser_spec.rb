@@ -1,5 +1,5 @@
 require_relative '../spec_helper.rb'
-require 'parser/parser'
+require 'ae_quotes_importer/parser/parser'
 
 module AeQuotesImporter
 

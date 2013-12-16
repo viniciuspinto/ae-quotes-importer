@@ -1,6 +1,3 @@
-require 'model/ae_quote.rb'
-require 'parser/layout.rb'
-
 module AeQuotesImporter
 
   class Parser

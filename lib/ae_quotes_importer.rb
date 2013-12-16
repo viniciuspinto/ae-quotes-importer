@@ -3,6 +3,11 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'logger'
 require 'active_record'
 require 'standalone_migrations'
+require 'ae_quotes_importer/model/stock'
+require 'ae_quotes_importer/model/ae_quote'
+require 'ae_quotes_importer/parser/layout'
+require 'ae_quotes_importer/parser/parser'
+require 'ae_quotes_importer/importer/importer'
 
 module AeQuotesImporter
 
