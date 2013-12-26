@@ -21,25 +21,23 @@ You can either use your existing tables (as long as they have the correct schema
 
 **Creating stocks**
 
-Creating a stock:
-
     ./bin/ae_quotes_importer create_stock STOCK_CODE [STOCK_NAME [STOCKS_TABLE]]
 
 The default table name is `stocks`. If you don't provide the stock name, the code will be used.
 
 Some examples:
+
     ./bin/ae_quotes_importer create_stock PETR4
     ./bin/ae_quotes_importer create_stock BBDC4 "BCO BRADESCO" my_stocks_table
 
 **Importing files**
-
-Importing quotes from a .csv file:
 
     ./bin/ae_quotes_importer import_quotes STOCK_CODE CSV_FILE_PATH [QUOTES_TABLE]
 
 The default table name is `ae_quotes`.
 
 Some examples:
+
     ./bin/ae_quotes_importer import_quotes PETR4 petr4.csv
     ./bin/ae_quotes_importer import_quotes BBDC4 ~/stocks/bradesco.csv my_quotes_table
 
