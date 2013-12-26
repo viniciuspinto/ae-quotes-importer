@@ -5,22 +5,25 @@ module AeQuotesImporter
     attr_reader :saved_quotes, :duplicate_quotes
 
     def initialize(opts = {})
-      @stock_id = opts[:stock_id] || nil
+      @stock_id = opts[:stock_id]
       @parser = opts[:parser] || AeQuotesImporter::Parser.new
       @saved_quotes = 0
       @duplicate_quotes = 0
+      @table_name = opts[:table_name]
     end
 
     def import_file(file_path)
       if @stock_id
-        if File.exist?(file_path) and File.readable?(file_path)
+        if File.readable?(file_path)
           import_lines IO.readlines(file_path)
+          return true
         else
           AeQuotesImporter::logger.error("Cannot read file: #{file_path}")
         end
       else
         AeQuotesImporter::logger.error("Stock is invalid, cannot import file.")
       end
+      false
     end
 
     def import_lines(lines)
@@ -51,8 +54,17 @@ module AeQuotesImporter
     end
 
     def save_quote(quote)
-      AeQuote.replace quote_data_for_db(quote)
-      @saved_quotes += 1
+      if @table_name
+        AeQuote.table_name = @table_name
+      end
+      if AeQuote.replace(quote_data_for_db(quote))
+        @saved_quotes += 1
+      end
+    end
+
+    def print_report
+      puts "New quotes: #{@saved_quotes - @duplicate_quotes}"
+      puts "Duplicate quotes (overwritten): #{@duplicate_quotes}"
     end
 
   end

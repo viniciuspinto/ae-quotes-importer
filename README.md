@@ -1,27 +1,46 @@
-ae-quotes-importer
+AE Quotes Importer
 ==================
 
 Parse and import daily stock quotes from Agência Estado's .csv files into a database (tested with MySQL).
 
 Some companies listed on Bovespa, like Bradesco and Petrobrás, provide access to adjusted historical quotes in the form of .csv files. These files can be downloaded in their Investor Relations sites.
 
-**DB setup:**
+**DB Setup**
+
+Edit the database connection info on `db/config.yml`.
+
+You can either use your existing tables (as long as they have the correct schema) or create them with:
 
     rake db:create
     rake db:migrate
 
 **Testing:**
 
-    rake db:migrate DB=test
+    rake db:test:prepare
     rake test:rspec
 
-**Provided tasks:**
+**Usage**
 
-    # Create a stock
-    ruby tasks/create_stock.rb STOCK_CODE STOCK_NAME
+Creating a stock:
 
-    # Import a .csv file (downloaded from AE)
-    ruby tasks/import_ae_quotes.rb (STOCK_CODE | STOCK_ID) QUOTES_FILE_PATH
+    ae_quotes_importer create_stock STOCK_CODE [STOCK_NAME [STOCKS_TABLE]]
+
+    * The default table name is `stocks`. If you don't provide the stock name, the code will be used.
+
+    Examples:
+              ae_quotes_importer create_stock PETR4
+              ae_quotes_importer create_stock BBDC4 "BCO BRADESCO" my_stocks_table
+
+
+Importing quotes from a .csv file:
+
+    ae_quotes_importer import_quotes STOCK_CODE CSV_FILE_PATH [QUOTES_TABLE]
+
+    * The default table name is `ae_quotes`
+
+    Examples:
+              ae_quotes_importer import_quotes PETR4 petr4.csv
+              ae_quotes_importer import_quotes BBDC4 ~/stocks/bradesco.csv my_quotes_table
 
 **License:**
 

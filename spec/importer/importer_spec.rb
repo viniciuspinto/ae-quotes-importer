@@ -8,12 +8,12 @@ module AeQuotesImporter
   describe Importer do
 
     before(:all) do
-      @stock = Stock.create(code: 'BBDC4', name: 'BRADESCO')
       @file1_path = File.expand_path('../data/ae_quotes1.csv', File.dirname(__FILE__))
       @file2_path = File.expand_path('../data/ae_quotes2.csv', File.dirname(__FILE__))
     end
 
     before(:each) do
+      @stock = Stock.create(code: 'BBDC4', name: 'BRADESCO')
       importer = Importer.new(:stock_id => @stock.id)
       importer.import_file @file1_path
     end

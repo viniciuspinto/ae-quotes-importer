@@ -1,6 +1,9 @@
 .DS_Store
 *.swp
 Gemfile.lock
+data/quotes
+.ruby-version
+.ruby-gemset
 *.gem
 *.rbc
 .bundle

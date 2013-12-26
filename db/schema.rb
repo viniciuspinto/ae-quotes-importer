@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131215154547) do
+ActiveRecord::Schema.define(:version => 20131225131438) do
 
   create_table "ae_quotes", :force => true do |t|
     t.integer  "stock_id",                                       :null => false
@@ -34,5 +34,7 @@ ActiveRecord::Schema.define(:version => 20131215154547) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "stocks", ["code"], :name => "idx_unique_stocks_code", :unique => true
 
 end

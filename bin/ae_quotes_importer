@@ -1,0 +1,100 @@
+#!/usr/bin/env ruby
+
+module AeQuotesImporter
+
+  ORIGINAL_WORKING_DIR = Dir.pwd
+
+  def self.check_argument_count(args, n)
+    if args.size < n
+      puts "Invalid arguments, run without arguments to see usage instructions"
+      exit(false)
+    end
+  end
+
+  def self.create_stock(args)
+    check_argument_count(args, 1)
+    stock = { code: args[0], name: args[0] }
+    if args.size > 1
+      stock[:name] = args[1]
+      if args.size > 2
+        table_name = args[2]
+      end
+    end
+    success = false
+    begin
+      success = Stock.create_with_table_name(stock, table_name)
+      if success
+        puts "Successfully created stock with code #{stock[:code]}, name \"#{stock[:name]}\""
+        puts "Database table: #{table_name || Stock.table_name}"
+      end
+    rescue Exception => e
+      puts e.message
+    end
+    exit(success)
+  end
+
+  def self.import_quotes(args)
+    check_argument_count(args, 2)
+    stock = Stock.get_stock(args[0])
+    if not stock
+      puts "Invalid stock, please use a valid stock code or stock ID."
+    else
+      table_name = args[2] unless args.size < 3
+      success = false
+      begin
+        importer = Importer.new(stock_id: stock.id, table_name: table_name)
+        csv_file_path = File.expand_path(args[1], $original_working_dir)
+        if importer.import_file(csv_file_path)
+          success = true
+          puts "Stock ##{stock.id} #{stock.code} (#{stock.name})"
+          importer.print_report
+          puts "Database table: #{table_name || AeQuote.table_name}"
+        end
+      rescue Exception => e
+        puts e.message
+      end
+      exit(success)
+    end
+  end
+
+  def self.print_usage
+    puts "Usage: ae_quotes_importer <command> <options>"
+    puts
+    puts "Creating a stock:"
+    puts "    ae_quotes_importer create_stock STOCK_CODE [STOCK_NAME [STOCKS_TABLE]]"
+    puts
+    puts "    * The default table name is \"stocks\". If you don't provide the stock name, the code will be used."
+    puts
+    puts "    Examples:"
+    puts "              ae_quotes_importer create_stock PETR4"
+    puts "              ae_quotes_importer create_stock BBDC4 \"BCO BRADESCO\" my_stocks_table"
+    puts
+    puts
+    puts "Importing quotes from a .csv file:"
+    puts "    ae_quotes_importer import_quotes STOCK_CODE CSV_FILE_PATH [QUOTES_TABLE]"
+    puts
+    puts "    * The default table name is \"ae_quotes\""
+    puts
+    puts "    Examples:"
+    puts "              ae_quotes_importer import_quotes PETR4 petr4.csv"
+    puts "              ae_quotes_importer import_quotes BBDC4 ~/stocks/bradesco.csv my_quotes_table"
+    puts
+  end
+
+  Dir.chdir(File.expand_path('../', File.dirname(__FILE__)))
+  require_relative '../lib/ae_quotes_importer.rb'
+
+  if ARGV.empty?
+    print_usage
+  else
+    case ARGV.shift
+      when 'create_stock'
+        create_stock ARGV
+      when 'import_quotes'
+        import_quotes ARGV
+      else
+        puts "Invalid arguments"
+    end
+  end
+
+end
