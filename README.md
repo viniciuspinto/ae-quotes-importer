@@ -19,28 +19,29 @@ You can either use your existing tables (as long as they have the correct schema
     rake db:test:prepare
     rake test:rspec
 
-**Usage**
+**Creating stocks**
 
 Creating a stock:
 
-    ae_quotes_importer create_stock STOCK_CODE [STOCK_NAME [STOCKS_TABLE]]
+    ./bin/ae_quotes_importer create_stock STOCK_CODE [STOCK_NAME [STOCKS_TABLE]]
 
-    * The default table name is `stocks`. If you don't provide the stock name, the code will be used.
+The default table name is `stocks`. If you don't provide the stock name, the code will be used.
 
-    Examples:
-              ae_quotes_importer create_stock PETR4
-              ae_quotes_importer create_stock BBDC4 "BCO BRADESCO" my_stocks_table
+Some examples:
+    ./bin/ae_quotes_importer create_stock PETR4
+    ./bin/ae_quotes_importer create_stock BBDC4 "BCO BRADESCO" my_stocks_table
 
+**Importing files**
 
 Importing quotes from a .csv file:
 
-    ae_quotes_importer import_quotes STOCK_CODE CSV_FILE_PATH [QUOTES_TABLE]
+    ./bin/ae_quotes_importer import_quotes STOCK_CODE CSV_FILE_PATH [QUOTES_TABLE]
 
-    * The default table name is `ae_quotes`
+The default table name is `ae_quotes`.
 
-    Examples:
-              ae_quotes_importer import_quotes PETR4 petr4.csv
-              ae_quotes_importer import_quotes BBDC4 ~/stocks/bradesco.csv my_quotes_table
+Some examples:
+    ./bin/ae_quotes_importer import_quotes PETR4 petr4.csv
+    ./bin/ae_quotes_importer import_quotes BBDC4 ~/stocks/bradesco.csv my_quotes_table
 
 **License:**
 
